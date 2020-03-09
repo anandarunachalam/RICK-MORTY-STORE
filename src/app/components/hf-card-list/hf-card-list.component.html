@@ -1,0 +1,90 @@
+<div fxLayout="row" fxLayout.xs="column" fxFlex fxLayoutGap="20px">
+
+    <div fxLayout="column" fxFlex="20" class="p-l-20">
+       <h4>Filter</h4>
+       <app-hf-filter-block [filterList]="filterList" (filterChange)="filterChange($event)"></app-hf-filter-block>
+    </div>
+
+    <div fxLayout="column" fxFlex="80">
+
+       <div fxLayout="row wrap" class="m-r-20" fxFlex>
+        <div fxFlex="100" class="p-10 p-l-none">
+            <h3>Selected Filters</h3>
+            
+            <mat-chip-list aria-label="" *ngIf="selectedFilter.length > 0" >   
+           
+                <app-hf-chips-list *ngFor="let item of selectedFilter" [chipsInput]="item" (removeFilter)="filterChange($event)"></app-hf-chips-list>
+            </mat-chip-list>
+            
+        </div>
+          <div fxFlex="50" class="p-10 p-l-none">
+            <div class="">
+                <label for="search">Search By Name</label>
+                <input type="text" id="search" placeholder="" [(ngModel)]="searchName">
+                <button color="primary" (click)="getAllCharacters(page.currentpage)">Search</button>
+             </div>
+          </div>
+          <div fxFlex="50" class="p-10 p-r-none" fxLayoutAlign="end">
+            <div class="">
+                <select (change)="sortOrder = $event.target.value" #sortVar>
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+                </select>
+             </div>
+          </div>
+
+          
+          <div fxFlex="25" fxFlex.xs="50" class="p-10 bg-black cards" *ngFor="let char of allCharacters | sort:'id': sortOrder">
+             
+             <mat-card class="">                
+                <img mat-card-image [src]="char.image" alt="{{char.image}}">
+                <mat-card-header>                    
+                    <mat-card-title>{{char.name}}</mat-card-title>
+                    <mat-card-subtitle class="text-11">id: {{char.id}} - {{ char.created}}</mat-card-subtitle>
+                  </mat-card-header>
+                <mat-card-content>
+                    <mat-list dense>
+                        <mat-list-item>
+                            <div fxLayoutAlign="start" fxLayout.lt-sm="column" fxFill>
+                            <span fxFlex="50%" fxLayoutAlign="start" class="color-grey">STATUS</span>
+                            <span fxFlex="50%" fxLayoutAlign="end" class="color-dark-yellow">{{char.status}}</span>
+                        </div> 
+                        </mat-list-item>
+                        <mat-list-item>
+                            <div fxLayoutAlign="start" fxLayout.lt-sm="column" fxFill>
+                            <span fxFlex="50%" fxLayoutAlign="start" class="color-grey">SPECIES</span>
+                            <span fxFlex="50%" fxLayoutAlign="end" class="color-dark-yellow">{{char.species}}</span>
+                        </div> 
+                        </mat-list-item>
+                        <mat-list-item>
+                            <div fxLayoutAlign="start" fxLayout.lt-sm="column" fxFill>
+                            <span fxFlex="50%" fxLayoutAlign="start" class="color-grey">GENDER</span>
+                            <span fxFlex="50%" fxLayoutAlign="end" class="color-dark-yellow">{{char.gender}}</span>
+                        </div> 
+                        </mat-list-item>
+                        <mat-list-item>
+                            <div fxLayoutAlign="start" fxLayout.lt-sm="column" fxFill>
+                            <span fxFlex="50%" fxLayoutAlign="start" class="color-grey">ORIGIN</span>
+                            <span fxFlex="50%" fxLayoutAlign="end" class="color-dark-yellow text-right">{{char.origin.name}}</span>
+                        </div> 
+                        </mat-list-item>
+                        <mat-list-item>
+                            <div fxLayoutAlign="start" fxLayout.lt-sm="column" fxFill>
+                            <span fxFlex="30%" fxLayoutAlign="start" class="color-grey">LAST LOCATION</span>
+                            <span fxFlex="70%" fxLayoutAlign="end" class="color-dark-yellow text-right">{{char.location.name}}</span>
+                        </div> 
+                        </mat-list-item>                        
+                       </mat-list>
+                </mat-card-content>                
+              </mat-card>
+            
+          </div>
+       </div>
+
+       <div fxLayoutAlign="end">
+          <app-hf-pagination-block [currentPage]="page.currentpage" [totalItemsCount]="page.count" [perPage]="page.perPage" [pagesToShow]="page.pages > 4 ? 4: page.pages"
+          (prev)="goToPage($event)" (next)="goToPage($event)" (goPage)="goToPage($event)"></app-hf-pagination-block>
+       </div>
+
+    </div>
+ </div>

@@ -1,0 +1,22 @@
+:host ::ng-deep .mat-card-header-text { 
+    margin: 0 0px;
+}
+:host ::ng-deep .mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content { 
+    padding: 0px!important;
+}
+:host ::ng-deep .mat-card-header { 
+    position: absolute;
+    top: 180px;
+    background: #202329;
+    padding: 10px 0px 0px 6%;
+    width: 94%;
+    left: 0px;
+    opacity: 0.6;
+    color: #fff;
+}
+:host ::ng-deep .mat-card-header .mat-card-subtitle { 
+    color: #fff;
+}
+:host ::ng-deep .mat-card {    
+    background-color: #333;
+}
